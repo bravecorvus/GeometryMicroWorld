@@ -77,6 +77,15 @@ equality(ELEM1, ELEM2, ELEM3, ELEM4) :-
 
 %% quadraticformula
 
+%%Slope formula
+slope(FirstPoint, SecondPoint, M) :-
+	point(FirstPoint, Xfirst, Yfirst), point(SecondPoint, Xsecond, Ysecond),
+	M is ((Ysecond - Yfirst) / (Xsecond - Xfirst)).
+
+%%Determining parallel lines
+parallel(FirstPoint, SecondPoint, ThirdPoint, FourthPoint) :-
+	slope(FirstPoint, SecondPoint, M1), slope(ThirdPoint, FourthPoint, M2),
+	M1 is M2.
 
 equilateraltriangle(FIRST, SECOND, THIRD) :-
 %% Part 1: Using Trigonometry to Find exact Location of the (x, y) coordinates for the THIRD option
@@ -124,34 +133,51 @@ isosolestriangle(FIRST, SECOND, THIRD):-
 
 
 
-%% square(FirstPoint, SecondPoint, ThirdPoint, FourthPoint) :-
-%%     quadrilateral(FirstPoint, SecondPoint, ThirdPoint, FourthPoint),
-%%     point(FirstPoint, X, Yfirst), point(SecondPoint, )
+square(FirstPoint, SecondPoint, ThirdPoint, FourthPoint) :-
+    quadrilateral(FirstPoint, SecondPoint, ThirdPoint, FourthPoint),
+    distanceofsegment(FirstPoint, SecondPoint, D1), 
+    distanceofsegment(SecondPoint, ThirdPoint, D2), 
+    distanceofsegment(ThirdPoint, FourthPoint, D3),
+    distanceofsegment(FirstPoint, FourthPoint, D4),
+    equality(D1, D2, D3, D4).
 
+regSquare(FirstPoint, SecondPoint, ThirdPoint, FourthPoint) :-
+	square(FirstPoint, SecondPoint, ThirdPoint, FourthPoint),
+	parallel(FirstPoint, SecondPoint, ptest1, ptest2);
+	parallel(SecondPoint, ThirdPoint, ptest1, ptest2);
+	parallel(ThirdPoint, FourthPoint, ptest1, ptest2);
+	parallel(FirstPoint, FourthPoint, ptest1, ptest2).
 
-
-
-
-
+%%rectangle(FirstPoint, SecondPoint, ThirdPoint, FourthPoint) :-
+%%	quadrilateral(FirstPoint, SecondPoint, ThirdPoint, FourthPoint),
+%%	distanceofsegment(FirstPoint, SecondPoint, D1),
+%%	distanceofsegment(SecondPoint, ThirdPoint, D2), 
+%%  distanceofsegment(ThirdPoint, FourthPoint, D3),
+%%    distanceofsegment(FirstPoint, FourthPoint, D4),
+%%    equality(D1, D3), equality(D2, D4),
+%%    parallel(FirstPoint, SecondPoint), 
 
 
 %% int main() {
+point(ptest1, 1, 0).
+point(ptest2, 5, 0).
 point(one, -5.0, 0.0).
 point(two, 5.0, 0.0).
 point(three, 0.0, sqrt(75.0)).
 point(isos, 0.0, 7.0).
 
-shape(one, two, three).
-shape(one, two, isos).
-shape(four, five, six, seven).
-
 point(four, 0, 0).
 point(five, 0, 5).
 point(six, 5, 5).
 point(seven, 5, 0).
+
+shape(one, two, three).
+shape(one, two, isos).
+shape(four, five, six, seven).
+
 %% }
 
 
 %% (testing a hardcode version of the trig function used in the equilateraltriangle definition)
-%% TEMPX is ((cos(60 * pi / 180) * (-5.0-5.0)) - (sin(60 * pi / 180) * (0)) + 5.0) 
+%% TEMPX is ((cos(60 * pi / 180) * (-5.0-5.0)) - (sin(60 * pi / 180) * (0)) + 5.0)
 %% TEMPY is ((sin(60 * pi / 180) * (-5-5)) + (cos(60 * pi / 180) * (0)) + 0)
