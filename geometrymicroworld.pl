@@ -41,14 +41,9 @@ quadrilateral(A, B, C, D) :- shape(A, B, C, D);
 
 %% GETTING THE SEGMENT OF A TWO POINTS OF A TRIANGLE
 segment(FirstPoint, SecondPoint, X1, Y1, X2, Y2) :-
-  triangle(FirstPoint, SecondPoint, ThirdPoint), point(FirstPoint, X1, Y1), point(SecondPoint, X2, Y2).
+  point(FirstPoint, X1, Y1), point(SecondPoint, X2, Y2).
 
 
-%% GETTING THE SEGMENT OF TWO POINTS OF A QUADRILATERAL
-segment(FirstPoint, SecondPoint, X1, Y1, X2, Y2) :-
-  quadrilateral(FirstPoint, SecondPoint, ThirdPoint, FourthPoint),
-  point(FirstPoint, X1, Y1),
-  point(SecondPoint, X2, Y2).
 
 distanceofsegment(FirstPoint, SecondPoint, Distance) :-
   segment(FirstPoint, SecondPoint, X1, Y1, X2, Y2),
@@ -58,6 +53,16 @@ distanceofsegment(FirstPoint, SecondPoint, Distance) :-
 
 equality(ELEM1, ELEM2) :-
   ELEM1 is ELEM2; ELEM2 is ELEM1.
+
+
+%% equalitydist(DISTANCE1, DISTANCE2):-
+%%   point(POINT1, X1, Y1),
+%%   point(POINT2, X2, Y2),
+%%   distanceofsegment
+
+%% point(one, -5.0, 0.0).
+%% point(two, 5.0, 0.0).
+
 
 equality(ELEM1, ELEM2, ELEM3) :-
   ELEM1 is ELEM2; ELEM2 is ELEM1,
@@ -92,6 +97,32 @@ equilateraltriangle(FIRST, SECOND, THIRD) :-
     equality(DistanceOne, DistanceTwo, DistanceThree).
 
 
+isosolestriangle(FIRST, SECOND, THIRD):-
+    triangle(FIRST, SECOND, THIRD),
+    distanceofsegment(FIRST, SECOND, DistanceOne),
+    distanceofsegment(SECOND, THIRD, DistanceTwo),
+    distanceofsegment(THIRD, FIRST, DistanceThree),
+
+    %% DistanceOne is DistanceTwo;
+    %% DistanceTwo is DistanceThree.
+    %% DistanceThree is DistanceOne.
+
+    %% DistanceOne is DistanceTwo; DistanceTwo is DistanceOne;
+    %% DistanceTwo is DistanceThree; DistanceThree is DistanceTwo;
+    %% DistanceThree is DistanceOne; DistanceOne is DistanceThree.
+    
+
+    equality(DistanceOne, DistanceTwo),
+    equality(DistanceTwo, DistanceThree),
+    equality(DistanceThree, DistanceOne).
+
+%%     switch(equality(D1, D2, D3), [
+%%     equality(D2, D2),
+%%     b : writeln(case2),
+%%     c : writeln(case3)
+%% ])
+
+
 
 %% square(FirstPoint, SecondPoint, ThirdPoint, FourthPoint) :-
 %%     quadrilateral(FirstPoint, SecondPoint, ThirdPoint, FourthPoint),
@@ -108,8 +139,12 @@ equilateraltriangle(FIRST, SECOND, THIRD) :-
 point(one, -5.0, 0.0).
 point(two, 5.0, 0.0).
 point(three, 0.0, sqrt(75.0)).
+point(isos, 0.0, 7.0).
+
 shape(one, two, three).
+shape(one, two, isos).
 shape(four, five, six, seven).
+
 point(four, 0, 0).
 point(five, 0, 5).
 point(six, 5, 5).
