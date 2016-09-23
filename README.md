@@ -10,7 +10,6 @@ We used two kinds of structures to carry this out. The point structure defines a
 
 Func Name | Definition
 -------- | ---------------------------------------------------
-Content in the first column | Content in the second column
 equitri | Given 3 names within the point funcdor, it will try to unify with the defitions of the derived segment length (using a trigonometric function) and a distance function between the 3 points to determine if the length is the same for all.
 isostri | Given 3 point values, it will return true if the values create an isosoles triangle, where two or more values of the segment are equal.
 righttri | Given 3 point values, it will get the segment information, and using trigonometry, it will unify to any set to see whether any of the angles are 90 degrees.
