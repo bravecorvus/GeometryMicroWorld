@@ -269,5 +269,7 @@ point(test3, 1, 0).
 
 % To bundle the abstract entities of "points" together, we grouped them into shapes
 shape(one, two, three).
+shape(eqone, eqtwo, eqthree).
+shape(one, four, five).
 shape(four, five, six, seven).
 shape(four, five, six, seven).
