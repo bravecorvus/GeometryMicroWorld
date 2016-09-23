@@ -1,6 +1,6 @@
-### Geometry Micro World Project
+# Geometry Micro World Project
 
-## By | Kathryn Mechura and Andrew Lee
+### By | Kathryn Mechura and Andrew Lee
 
 Using Prolog, we created a series of dictionary entries and defitions to create a universe of geometry.
 
